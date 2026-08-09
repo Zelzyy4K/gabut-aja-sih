@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Website Ngentot</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #0d0d0d;
+      color: #fff;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      user-select: none;
+    }
+
+    .bg {
+      position: fixed;
+      inset: 0;
+      background: 
+        radial-gradient(circle at 30% 20%, rgba(255, 0, 100, 0.18), transparent 45%),
+        radial-gradient(circle at 70% 80%, rgba(180, 0, 255, 0.12), transparent 45%),
+        #0d0d0d;
+      z-index: -1;
+    }
+
+    h1 {
+      font-size: clamp(2.8rem, 12vw, 7.5rem);
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      background: linear-gradient(90deg, #ff0066, #ff9900, #ff00cc, #ff0066);
+      background-size: 300% 100%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: gradient 3.5s linear infinite, bounce 1.8s ease-in-out infinite;
+      text-shadow: 0 0 50px rgba(255, 0, 100, 0.5);
+      margin-bottom: 0.15em;
+    }
+
+    @keyframes gradient {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 300% 50%; }
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: scale(1) rotate(-1deg); }
+      50% { transform: scale(1.06) rotate(1deg); }
+    }
+
+    .subtitle {
+      font-size: 1rem;
+      color: #bbb;
+      margin-bottom: 2rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    .main-emoji {
+      font-size: 5.5rem;
+      margin: 0.8rem 0 2rem;
+      cursor: pointer;
+      transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+      filter: drop-shadow(0 0 25px rgba(255, 0, 120, 0.7));
+    }
+
+    .main-emoji:hover {
+      transform: scale(1.35) rotate(-10deg);
+    }
+
+    .main-emoji:active {
+      transform: scale(0.85);
+    }
+
+    .btn {
+      background: linear-gradient(135deg, #ff0066, #cc00ff);
+      color: white;
+      border: none;
+      padding: 1.05rem 2.4rem;
+      font-size: 1.15rem;
+      font-weight: 700;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      box-shadow: 0 10px 30px rgba(255, 0, 100, 0.45);
+      letter-spacing: 0.04em;
+    }
+
+    .btn:hover {
+      transform: translateY(-5px) scale(1.06);
+      box-shadow: 0 15px 40px rgba(255, 0, 100, 0.65);
+    }
+
+    .btn:active {
+      transform: translateY(0) scale(0.96);
+    }
+
+    .stats {
+      margin-top: 2.2rem;
+      text-align: center;
+      font-size: 1.15rem;
+      color: #ffcc00;
+      font-weight: 600;
+      line-height: 1.6;
+    }
+
+    .stats span {
+      font-size: 1.8rem;
+      color: #fff;
+    }
+
+    .particle {
+      position: fixed;
+      pointer-events: none;
+      font-size: 1.9rem;
+      animation: fly 1.3s ease-out forwards;
+      z-index: 99;
+    }
+
+    @keyframes fly {
+      0% {
+        opacity: 1;
+        transform: translate(0, 0) scale(1) rotate(0deg);
+      }
+      100% {
+        opacity: 0;
+        transform: translate(var(--tx), var(--ty)) scale(0.2) rotate(var(--rot));
+      }
+    }
+
+    .status {
+      margin-top: 1.8rem;
+      font-size: 1.05rem;
+      color: #ff66aa;
+      min-height: 1.5em;
+      transition: all 0.3s;
+    }
+
+    footer {
+      position: fixed;
+      bottom: 18px;
+      font-size: 0.78rem;
+      color: #444;
+    }
+  </style>
+</head>
+<body>
+  <div class="bg"></div>
+
+  <h1>NGENTOT</h1>
+  <p class="subtitle">Official Website</p>
+
+  <div class="main-emoji" id="emoji" title="Klik terus">🔥</div>
+
+  <button class="btn" id="btn">Ngentot Sekarang</button>
+
+  <div class="stats">
+    Sudah ngentot: <span id="count">0</span> kali<br>
+    <span id="level" style="font-size:1rem; color:#aaa;">Level: Pemula</span>
+  </div>
+
+  <div class="status" id="status"></div>
+
+  <footer>© 2026 Website Ngentot — pure HTML CSS JS</footer>
+
+  <script>
+    let count = 0;
+    const countEl = document.getElementById('count');
+    const levelEl = document.getElementById('level');
+    const emoji = document.getElementById('emoji');
+    const btn = document.getElementById('btn');
+    const status = document.getElementById('status');
+
+    const emojis = ['🔥', '💦', '🍆', '🍑', '🥵', '💀', '😩', '‼️', '🫠', '👀'];
+    const messages = [
+      "Ayo lebih kenceng!",
+      "Masih kurang...",
+      "Wah mulai basah",
+      "Terusin jangan berhenti",
+      "Level dewa unlocked?",
+      "Ngentot abis-abisan!",
+      "Kamu gila sih",
+      "Masih kuat?",
+      "Gas terus kontol",
+      "Sudah hampir climax"
+    ];
+
+    function getLevel(n) {
+      if (n < 10) return "Pemula";
+      if (n < 30) return "Biasa Aja";
+      if (n < 60) return "Agak Gila";
+      if (n < 100) return "Sange Berat";
+      if (n < 200) return "Ngentot Professional";
+      return "Dewa Ngentot 🔥";
+    }
+
+    function spawnParticles(x, y) {
+      for (let i = 0; i < 14; i++) {
+        const p = document.createElement('div');
+        p.className = 'particle';
+        p.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        p.style.left = x + 'px';
+        p.style.top = y + 'px';
+
+        const angle = Math.random() * Math.PI * 2;
+        const dist = 90 + Math.random() * 140;
+        p.style.setProperty('--tx', Math.cos(angle) * dist + 'px');
+        p.style.setProperty('--ty', Math.sin(angle) * dist + 'px');
+        p.style.setProperty('--rot', (Math.random() * 800 - 400) + 'deg');
+
+        document.body.appendChild(p);
+        setTimeout(() => p.remove(), 1300);
+      }
+    }
+
+    function ngentot(e) {
+      count++;
+      countEl.textContent = count;
+      levelEl.textContent = "Level: " + getLevel(count);
+
+      // ganti emoji
+      emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+
+      // efek getar
+      emoji.style.transform = `scale(\( {1.5 + Math.random() * 0.4}) rotate( \){(Math.random() - 0.5) * 40}deg)`;
+      setTimeout(() => emoji.style.transform = '', 220);
+
+      // status random
+      status.textContent = messages[Math.floor(Math.random() * messages.length)];
+
+      // particle
+      if (e) {
+        spawnParticles(e.clientX, e.clientY);
+      } else {
+        const rect = emoji.getBoundingClientRect();
+        spawnParticles(rect.left + rect.width / 2, rect.top + rect.height / 2);
+      }
+    }
+
+    emoji.addEventListener('click', ngentot);
+    btn.addEventListener('click', ngentot);
+
+    // spasi juga bisa
+    document.addEventListener('keydown', (e) => {
+      if (e.code === 'Space') {
+        e.preventDefault();
+        ngentot();
+      }
+    });
+  </script>
+</body>
+</html>q
